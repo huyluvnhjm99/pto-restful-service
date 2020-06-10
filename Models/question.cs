@@ -17,5 +17,7 @@ namespace pto_restful_service.Models
         public int id { get; set; }
         public string question_content { get; set; }
         public int test_id { get; set; }
+
+
     }
 }

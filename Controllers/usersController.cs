@@ -12,52 +12,61 @@ using pto_restful_service.Models;
 
 namespace pto_restful_service.Controllers
 {
-    public class answersController : ApiController
+    public class usersController : ApiController
     {
         private entities db = new entities();
 
         [ActionName("get-all")]
-        // GET: api/answers
-        public IQueryable<answer> Getanswers()
+        // GET: api/users
+        public IQueryable<user> Getusers()
         {
-            return db.answers;
+            return db.users;
         }
 
-        [ActionName("get-by-questionid")]
-        public IQueryable<answer> GetanswersByQuestionId(int question_id)
+        [ActionName("get-by-gmail")]
+        // GET: api/users/5
+        [ResponseType(typeof(user))]
+        public IHttpActionResult Getuser(string gmail)
         {
-            return db.answers.Where(e => e.question_id == question_id);
-        }
-
-        [ActionName("get-by-id")]
-        // GET: api/answers/5
-        [ResponseType(typeof(answer))]
-        public IHttpActionResult Getanswer(int id)
-        {
-            answer answer = db.answers.Find(id);
-            if (answer == null)
+            user user = db.users.Find(gmail);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return Ok(answer);
+            return Ok(user);
         }
-        [ActionName("put-answer")]
-        // PUT: api/answers/5
+
+        [ActionName("get-by-id")]
+        // GET: api/users/5
+        [ResponseType(typeof(user))]
+        public IHttpActionResult Getuser(int id)
+        {
+            user user = db.users.Find(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
+        [ActionName("put-user")]
+        // PUT: api/users/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Putanswer(int id, answer answer)
+        public IHttpActionResult Putuser(int id, user user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != answer.id)
+            if (id != user.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(answer).State = EntityState.Modified;
+            db.Entry(user).State = EntityState.Modified;
 
             try
             {
@@ -65,7 +74,7 @@ namespace pto_restful_service.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!answerExists(id))
+                if (!userExists(id))
                 {
                     return NotFound();
                 }
@@ -77,36 +86,38 @@ namespace pto_restful_service.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-        [ActionName("post-answer")]
-        // POST: api/answers
-        [ResponseType(typeof(answer))]
-        public IHttpActionResult Postanswer(answer answer)
+
+        [ActionName("post-user")]
+        // POST: api/users
+        [ResponseType(typeof(user))]
+        public IHttpActionResult Postuser(user user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.answers.Add(answer);
+            db.users.Add(user);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = answer.id }, answer);
+            return CreatedAtRoute("DefaultApi", new { id = user.id }, user);
         }
-        [ActionName("delete-answer")]
-        // DELETE: api/answers/5
-        [ResponseType(typeof(answer))]
-        public IHttpActionResult Deleteanswer(int id)
+
+        [ActionName("delete-by-id")]
+        // DELETE: api/users/5
+        [ResponseType(typeof(user))]
+        public IHttpActionResult Deleteuser(int id)
         {
-            answer answer = db.answers.Find(id);
-            if (answer == null)
+            user user = db.users.Find(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            db.answers.Remove(answer);
+            db.users.Remove(user);
             db.SaveChanges();
 
-            return Ok(answer);
+            return Ok(user);
         }
 
         protected override void Dispose(bool disposing)
@@ -118,9 +129,9 @@ namespace pto_restful_service.Controllers
             base.Dispose(disposing);
         }
 
-        private bool answerExists(int id)
+        private bool userExists(int id)
         {
-            return db.answers.Count(e => e.id == id) > 0;
+            return db.users.Count(e => e.id == id) > 0;
         }
     }
 }

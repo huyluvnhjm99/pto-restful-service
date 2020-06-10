@@ -15,9 +15,9 @@ namespace pto_restful_service
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/v1/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                name: "DefaultApi2",
+                routeTemplate: "api/v1/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional, action = RouteParameter.Optional}
             );
         }
     }

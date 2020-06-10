@@ -12,52 +12,47 @@ using pto_restful_service.Models;
 
 namespace pto_restful_service.Controllers
 {
-    public class answersController : ApiController
+    public class personalitiesController : ApiController
     {
         private entities db = new entities();
 
         [ActionName("get-all")]
-        // GET: api/answers
-        public IQueryable<answer> Getanswers()
+        // GET: api/personalities
+        public IQueryable<personality> Getpersonalities()
         {
-            return db.answers;
-        }
-
-        [ActionName("get-by-questionid")]
-        public IQueryable<answer> GetanswersByQuestionId(int question_id)
-        {
-            return db.answers.Where(e => e.question_id == question_id);
+            return db.personalities;
         }
 
         [ActionName("get-by-id")]
-        // GET: api/answers/5
-        [ResponseType(typeof(answer))]
-        public IHttpActionResult Getanswer(int id)
+        // GET: api/personalities/5
+        [ResponseType(typeof(personality))]
+        public IHttpActionResult Getpersonality(int id)
         {
-            answer answer = db.answers.Find(id);
-            if (answer == null)
+            personality personality = db.personalities.Find(id);
+            if (personality == null)
             {
                 return NotFound();
             }
 
-            return Ok(answer);
+            return Ok(personality);
         }
-        [ActionName("put-answer")]
-        // PUT: api/answers/5
+
+        [ActionName("put-personality")]
+        // PUT: api/personalities/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Putanswer(int id, answer answer)
+        public IHttpActionResult Putpersonality(int id, personality personality)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != answer.id)
+            if (id != personality.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(answer).State = EntityState.Modified;
+            db.Entry(personality).State = EntityState.Modified;
 
             try
             {
@@ -65,7 +60,7 @@ namespace pto_restful_service.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!answerExists(id))
+                if (!personalityExists(id))
                 {
                     return NotFound();
                 }
@@ -77,36 +72,38 @@ namespace pto_restful_service.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-        [ActionName("post-answer")]
-        // POST: api/answers
-        [ResponseType(typeof(answer))]
-        public IHttpActionResult Postanswer(answer answer)
+
+        [ActionName("post-personality")]
+        // POST: api/personalities
+        [ResponseType(typeof(personality))]
+        public IHttpActionResult Postpersonality(personality personality)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.answers.Add(answer);
+            db.personalities.Add(personality);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = answer.id }, answer);
+            return CreatedAtRoute("DefaultApi", new { id = personality.id }, personality);
         }
-        [ActionName("delete-answer")]
-        // DELETE: api/answers/5
-        [ResponseType(typeof(answer))]
-        public IHttpActionResult Deleteanswer(int id)
+
+        [ActionName("delete-personality")]
+        // DELETE: api/personalities/5
+        [ResponseType(typeof(personality))]
+        public IHttpActionResult Deletepersonality(int id)
         {
-            answer answer = db.answers.Find(id);
-            if (answer == null)
+            personality personality = db.personalities.Find(id);
+            if (personality == null)
             {
                 return NotFound();
             }
 
-            db.answers.Remove(answer);
+            db.personalities.Remove(personality);
             db.SaveChanges();
 
-            return Ok(answer);
+            return Ok(personality);
         }
 
         protected override void Dispose(bool disposing)
@@ -118,9 +115,9 @@ namespace pto_restful_service.Controllers
             base.Dispose(disposing);
         }
 
-        private bool answerExists(int id)
+        private bool personalityExists(int id)
         {
-            return db.answers.Count(e => e.id == id) > 0;
+            return db.personalities.Count(e => e.id == id) > 0;
         }
     }
 }

@@ -16,12 +16,14 @@ namespace pto_restful_service.Controllers
     {
         private entities db = new entities();
 
+        [ActionName("get-all")]
         // GET: api/personalityTest
         public IQueryable<personality_test> Getpersonality_test()
         {
             return db.personality_test;
         }
 
+        [ActionName("get-by_id")]
         // GET: api/personalityTest/5
         [ResponseType(typeof(personality_test))]
         public IHttpActionResult Getpersonality_test(int id)
@@ -35,6 +37,7 @@ namespace pto_restful_service.Controllers
             return Ok(personality_test);
         }
 
+        [ActionName("put-test")]
         // PUT: api/personalityTest/5
         [ResponseType(typeof(void))]
         public IHttpActionResult Putpersonality_test(int id, personality_test personality_test)
@@ -70,6 +73,7 @@ namespace pto_restful_service.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        [ActionName("post-test")]
         // POST: api/personalityTest
         [ResponseType(typeof(personality_test))]
         public IHttpActionResult Postpersonality_test(personality_test personality_test)
@@ -85,6 +89,7 @@ namespace pto_restful_service.Controllers
             return CreatedAtRoute("DefaultApi", new { id = personality_test.id }, personality_test);
         }
 
+        [ActionName("delete-test")]
         // DELETE: api/personalityTest/5
         [ResponseType(typeof(personality_test))]
         public IHttpActionResult Deletepersonality_test(int id)
