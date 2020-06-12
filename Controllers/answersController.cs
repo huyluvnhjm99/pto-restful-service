@@ -24,9 +24,9 @@ namespace pto_restful_service.Controllers
         }
 
         [ActionName("get-by-questionid")]
-        public IQueryable<answer> GetanswersByQuestionId(int question_id)
+        public IQueryable<answer> GetanswersByQuestionId(int id)
         {
-            return db.answers.Where(e => e.question_id == question_id);
+            return db.answers.Where(e => e.question_id == id);
         }
 
         [ActionName("get-by-id")]
