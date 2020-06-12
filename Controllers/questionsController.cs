@@ -26,9 +26,9 @@ namespace pto_restful_service.Controllers
 
         [ActionName("get-by-testid")]
         //.../questions?test_id=1
-        public IQueryable<question> GetquestionsByTestId(int test_id)
+        public IQueryable<question> GetquestionsByTestId(int id)
         {
-            return db.questions.Where(e => e.test_id == test_id);
+            return db.questions.Where(e => e.test_id == id);
         }
 
         [ActionName("get-by-testid-and-sort")]
