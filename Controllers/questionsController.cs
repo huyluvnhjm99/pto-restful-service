@@ -31,16 +31,31 @@ namespace pto_restful_service.Controllers
             return db.questions.Where(e => e.test_id == id);
         }
 
-        [ActionName("get-by-testid-and-sort")]
-        //.../api/v1/questions?test_id=1&isSort=true
-        public IQueryable<question> GetquestionsByTestIdAndSort(int test_id, bool isSort)
+        [ActionName("filter-by-content")]
+        public IQueryable<question> GetquestionsByFilter(string min, string max, bool isSort)
         {
             if(isSort)
             {
-                return db.questions.Where(e => e.test_id == test_id).OrderBy(e => e.question_content);
+                return db.questions.Where(e => e.question_content.CompareTo(min) >= 0 
+                && e.question_content.CompareTo(max) <= 0).OrderBy(e => e.question_content);
             } else
             {
-                return db.questions.Where(e => e.test_id == test_id);
+                return db.questions.Where(e => e.question_content.CompareTo(min) >= 0
+                && e.question_content.CompareTo(max) <= 0);
+            }
+        }
+
+        [ActionName("get-by-testid-and-sort")]
+        //.../api/v1/questions?test_id=1&isSort=true
+        public IQueryable<question> GetquestionsByTestIdAndSort(int id, bool isSort)
+        {
+            if (isSort)
+            {
+                return db.questions.Where(e => e.test_id == id).OrderBy(e => e.question_content);
+            }
+            else
+            {
+                return db.questions.Where(e => e.test_id == id);
             }
         }
 
