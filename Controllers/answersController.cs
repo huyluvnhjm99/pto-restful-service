@@ -23,7 +23,7 @@ namespace pto_restful_service.Controllers
             return db.answers;
         }
 
-        [ActionName("get-by-questionid")]
+        [ActionName("get-by-questionidd")]
         public IQueryable<answer> GetanswersByQuestionId(int id)
         {
             return db.answers.Where(e => e.question_id == id);
