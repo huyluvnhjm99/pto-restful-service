@@ -42,6 +42,37 @@ namespace pto_restful_service.Controllers
 
             return Ok(answer);
         }
+
+        [ActionName("filter-by-content")]
+        public IQueryable<answer> GetanswersByFilter(string min, string max, bool isSort)
+        {
+            if (isSort)
+            {
+                return db.answers.Where(e => e.answer_content.CompareTo(min) >= 0
+                && e.answer_content.CompareTo(max) <= 0).OrderBy(e => e.answer_content);
+            }
+            else
+            {
+                return db.answers.Where(e => e.answer_content.CompareTo(min) >= 0
+                && e.answer_content.CompareTo(max) <= 0);
+            }
+        }
+
+        [ActionName("get-by-questionid-and-sort")]
+        //.../api/v1/questions?test_id=1&isSort=true
+        public IQueryable<answer> GetanswersByTestIdAndSort(int id, bool isSort)
+        {
+            if (isSort)
+            {
+                return db.answers.Where(e => e.question_id == id).OrderBy(e => e.answer_content);
+            }
+            else
+            {
+                return db.answers.Where(e => e.question_id == id);
+            }
+        }
+
+
         [ActionName("put-answer")]
         // PUT: api/answers/5
         [ResponseType(typeof(void))]
