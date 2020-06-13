@@ -17,5 +17,7 @@ namespace pto_restful_service.Models
         public int id { get; set; }
         public string gmail { get; set; }
         public string name { get; set; }
+        public string token { get; set; }
+        public string role { get; set; }
     }
 }
