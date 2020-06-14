@@ -26,15 +26,9 @@ namespace pto_restful_service.Controllers
         [ActionName("get-by-gmail")]
         // GET: api/users/5
         [ResponseType(typeof(user))]
-        public IHttpActionResult Getuser(string gmail)
+        public IQueryable<user> Getuser(string gmail)
         {
-            user user = db.users.Find(gmail);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(user);
+            return db.users.Where(e => e.gmail == gmail);
         }
 
         [ActionName("get-by-id")]
