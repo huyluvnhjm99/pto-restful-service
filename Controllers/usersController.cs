@@ -16,14 +16,15 @@ namespace pto_restful_service.Controllers
     {
         private entities db = new entities();
 
-        [ActionName("get-all")]
+        //[ActionName("get-all")]
         // GET: api/users
         public IQueryable<user> Getusers()
         {
             return db.users;
         }
 
-        [ActionName("get-by-gmail")]
+        //[ActionName("get-by-gmail")]
+        [NonAction]
         // GET: api/users/5
         [ResponseType(typeof(user))]
         public IQueryable<user> Getuser(string gmail)
@@ -31,7 +32,7 @@ namespace pto_restful_service.Controllers
             return db.users.Where(e => e.gmail == gmail);
         }
 
-        [ActionName("get-by-id")]
+        //[ActionName("get-by-id")]
         // GET: api/users/5
         [ResponseType(typeof(user))]
         public IHttpActionResult Getuser(int id)
@@ -45,7 +46,7 @@ namespace pto_restful_service.Controllers
             return Ok(user);
         }
 
-        [ActionName("put-user")]
+        //[ActionName("put-user")]
         // PUT: api/users/5
         [ResponseType(typeof(void))]
         public IHttpActionResult Putuser(int id, user user)
@@ -81,7 +82,7 @@ namespace pto_restful_service.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [ActionName("post-user")]
+        //[ActionName("post-user")]
         // POST: api/users
         [ResponseType(typeof(user))]
         public IHttpActionResult Postuser(user user)
@@ -97,7 +98,7 @@ namespace pto_restful_service.Controllers
             return CreatedAtRoute("DefaultApi", new { id = user.id }, user);
         }
 
-        [ActionName("delete-by-id")]
+        //[ActionName("delete-by-id")]
         // DELETE: api/users/5
         [ResponseType(typeof(user))]
         public IHttpActionResult Deleteuser(int id)

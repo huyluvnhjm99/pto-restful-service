@@ -13,25 +13,20 @@ using pto_restful_service.Models;
 
 namespace pto_restful_service.Controllers
 {
+    [RoutePrefix("api/v1/questions")]
     public class questionsController : ApiController
     {
         private entities db = new entities();
 
-        [ActionName("get-all")]
+        //[ActionName("get-all")]
         // GET: api/questions
         public IQueryable<question> Getquestions()
         {
             return db.questions;
         }
 
-        [ActionName("get-by-testid")]
-        //.../questions?test_id=1
-        public IQueryable<question> GetquestionsByTestId(int id)
-        {
-            return db.questions.Where(e => e.test_id == id);
-        }
-
-        [ActionName("filter-by-content")]
+        //[ActionName("filter-by-content")]
+        [Route("filter")]
         public IQueryable<question> GetquestionsByFilter(string min, string max, bool isSort)
         {
             if(isSort)
@@ -45,7 +40,8 @@ namespace pto_restful_service.Controllers
             }
         }
 
-        [ActionName("get-by-testid-and-sort")]
+        //[ActionName("get-by-testid-and-sort")]
+        [Route("test-id/{id}")]
         //.../api/v1/questions?test_id=1&isSort=true
         public IQueryable<question> GetquestionsByTestIdAndSort(int id, bool isSort)
         {
@@ -59,7 +55,7 @@ namespace pto_restful_service.Controllers
             }
         }
 
-        [ActionName("get-by-id")]
+        //[ActionName("get-by-id")]
         // GET: api/questions/5
         [ResponseType(typeof(question))]
         public IHttpActionResult Getquestion(int id)
@@ -73,7 +69,6 @@ namespace pto_restful_service.Controllers
             return Ok(question);
         }
 
-        [ActionName("put-question")]
         // PUT: api/questions/5
         [ResponseType(typeof(void))]
         public IHttpActionResult Putquestion(int id, question question)

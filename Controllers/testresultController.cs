@@ -12,18 +12,21 @@ using pto_restful_service.Models;
 
 namespace pto_restful_service.Controllers
 {
+    [RoutePrefix("api/v1/test-result")]
     public class testresultController : ApiController
     {
         private entities db = new entities();
 
-        [ActionName("get-all")]
-        // GET: api/testresult
+        //[ActionName("get-all")]
+        // GET: api/testresult'
+        [Route("")]
         public IQueryable<test_result> Gettest_result()
         {
             return db.test_result;
         }
 
-        [ActionName("get-by-id")]
+        //[ActionName("get-by-id")]
+        [Route("{id}")]
         // GET: api/testresult/5
         [ResponseType(typeof(test_result))]
         public IHttpActionResult Gettest_result(int id)
@@ -37,8 +40,9 @@ namespace pto_restful_service.Controllers
             return Ok(test_result);
         }
 
-        [ActionName("put-result")]
+        //[ActionName("put-result")]
         // PUT: api/testresult/5
+        [Route("{id}")]
         [ResponseType(typeof(void))]
         public IHttpActionResult Puttest_result(int id, test_result test_result)
         {
@@ -73,8 +77,9 @@ namespace pto_restful_service.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [ActionName("post-result")]
+        //[ActionName("post-result")]
         // POST: api/testresult
+        [Route("")]
         [ResponseType(typeof(test_result))]
         public IHttpActionResult Posttest_result(test_result test_result)
         {
@@ -104,8 +109,9 @@ namespace pto_restful_service.Controllers
             return CreatedAtRoute("DefaultApi", new { id = test_result.id }, test_result);
         }
 
-        [ActionName("delete-result")]
+        //[ActionName("delete-result")]
         // DELETE: api/testresult/5
+        [Route("{id}")]
         [ResponseType(typeof(test_result))]
         public IHttpActionResult Deletetest_result(int id)
         {

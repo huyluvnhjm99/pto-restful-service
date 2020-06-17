@@ -12,18 +12,17 @@ using pto_restful_service.Models;
 
 namespace pto_restful_service.Controllers
 {
+    [RoutePrefix("api/v1/user-answers")]
     public class useranswerController : ApiController
     {
         private entities db = new entities();
 
-        [ActionName("get-all")]
         // GET: api/useranswer
         public IQueryable<user_answer> Getuser_answer()
         {
             return db.user_answer;
         }
 
-        [ActionName("get-by-id")]
         // GET: api/useranswer/5
         [ResponseType(typeof(user_answer))]
         public IHttpActionResult Getuser_answer(int id)
@@ -37,7 +36,6 @@ namespace pto_restful_service.Controllers
             return Ok(user_answer);
         }
 
-        [ActionName("put-useranswer")]
         // PUT: api/useranswer/5
         [ResponseType(typeof(void))]
         public IHttpActionResult Putuser_answer(int id, user_answer user_answer)
@@ -73,7 +71,6 @@ namespace pto_restful_service.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [ActionName("post-useranswer")]
         // POST: api/useranswer
         [ResponseType(typeof(user_answer))]
         public IHttpActionResult Postuser_answer(user_answer user_answer)
@@ -104,7 +101,6 @@ namespace pto_restful_service.Controllers
             return CreatedAtRoute("DefaultApi", new { id = user_answer.id }, user_answer);
         }
 
-        [ActionName("delete-by-id")]
         // DELETE: api/useranswer/5
         [ResponseType(typeof(user_answer))]
         public IHttpActionResult Deleteuser_answer(int id)

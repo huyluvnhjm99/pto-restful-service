@@ -12,24 +12,17 @@ using pto_restful_service.Models;
 
 namespace pto_restful_service.Controllers
 {
+    [RoutePrefix("api/v1/answers")]
     public class answersController : ApiController
     {
         private entities db = new entities();
 
-        [ActionName("get-all")]
         // GET: api/answers
         public IQueryable<answer> Getanswers()
         {
             return db.answers;
         }
 
-        [ActionName("get-by-questionid")]
-        public IQueryable<answer> GetanswersByQuestionId(int id)
-        {
-            return db.answers.Where(e => e.question_id == id);
-        }
-
-        [ActionName("get-by-id")]
         // GET: api/answers/5
         [ResponseType(typeof(answer))]
         public IHttpActionResult Getanswer(int id)
@@ -43,7 +36,7 @@ namespace pto_restful_service.Controllers
             return Ok(answer);
         }
 
-        [ActionName("filter-by-content")]
+        [Route("filter")]
         public IQueryable<answer> GetanswersByFilter(string min, string max, bool isSort)
         {
             if (isSort)
@@ -58,9 +51,9 @@ namespace pto_restful_service.Controllers
             }
         }
 
-        [ActionName("get-by-questionid-and-sort")]
+        [Route("question-id/{id}")]
         //.../api/v1/questions?test_id=1&isSort=true
-        public IQueryable<answer> GetanswersByTestIdAndSort(int id, bool isSort)
+        public IQueryable<answer> GetanswersByQuestionIdAndSort(int id, bool isSort)
         {
             if (isSort)
             {
@@ -73,7 +66,7 @@ namespace pto_restful_service.Controllers
         }
 
 
-        [ActionName("put-answer")]
+        //u[ActionName("put-answer")]
         // PUT: api/answers/5
         [ResponseType(typeof(void))]
         public IHttpActionResult Putanswer(int id, answer answer)
@@ -108,7 +101,7 @@ namespace pto_restful_service.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-        [ActionName("post-answer")]
+        //[ActionName("post-answer")]
         // POST: api/answers
         [ResponseType(typeof(answer))]
         public IHttpActionResult Postanswer(answer answer)
@@ -123,7 +116,7 @@ namespace pto_restful_service.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = answer.id }, answer);
         }
-        [ActionName("delete-answer")]
+        //[ActionName("delete-answer")]
         // DELETE: api/answers/5
         [ResponseType(typeof(answer))]
         public IHttpActionResult Deleteanswer(int id)
