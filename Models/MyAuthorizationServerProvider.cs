@@ -34,7 +34,6 @@ namespace pto_restful_service.Models
                 identity.AddClaim(new Claim(ClaimTypes.Role, user.role));
                 identity.AddClaim(new Claim(ClaimTypes.Name, user.name));
                 identity.AddClaim(new Claim("Email", user.gmail));
-                identity.AddClaim(new Claim("Role", user.role));
                 context.Validated(identity);
             }
         }
