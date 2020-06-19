@@ -20,7 +20,6 @@ namespace pto_restful_service.Controllers
         private entities db = new entities();
 
         // GET: api/questions
-        [Authorize(Roles = "Admin")]
         public IQueryable<question> Getquestions()
         {
             return db.questions;
@@ -105,7 +104,7 @@ namespace pto_restful_service.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [ActionName("post-question")]
+        [Authorize(Roles = "Admin")]
         // POST: api/questions
         [ResponseType(typeof(question))]
         public IHttpActionResult Postquestion(question question)
@@ -121,7 +120,7 @@ namespace pto_restful_service.Controllers
             return CreatedAtRoute("DefaultApi", new { id = question.id }, question);
         }
 
-        [ActionName("delete-question")]
+        [Authorize(Roles = "Admin")]
         // DELETE: api/questions/5
         [ResponseType(typeof(question))]
         public IHttpActionResult Deletequestion(int id)

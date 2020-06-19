@@ -71,6 +71,7 @@ namespace pto_restful_service.Controllers
         }
 
         // POST: api/personalities
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(personality))]
         public IHttpActionResult Postpersonality(personality personality)
         {
@@ -86,6 +87,7 @@ namespace pto_restful_service.Controllers
         }
 
         // DELETE: api/personalities/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(personality))]
         public IHttpActionResult Deletepersonality(int id)
         {

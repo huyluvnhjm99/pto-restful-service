@@ -81,7 +81,6 @@ namespace pto_restful_service.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        //[ActionName("post-user")]
         // POST: api/users
         [ResponseType(typeof(user))]
         public IHttpActionResult Postuser(user user)
@@ -97,7 +96,7 @@ namespace pto_restful_service.Controllers
             return CreatedAtRoute("DefaultApi", new { id = user.id }, user);
         }
 
-        //[ActionName("delete-by-id")]
+        [Authorize(Roles = "Admin")]
         // DELETE: api/users/5
         [ResponseType(typeof(user))]
         public IHttpActionResult Deleteuser(int id)

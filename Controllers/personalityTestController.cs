@@ -91,6 +91,7 @@ namespace pto_restful_service.Controllers
         }
 
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         // DELETE: api/personalityTest/5
         [ResponseType(typeof(personality_test))]
         public IHttpActionResult Deletepersonality_test(int id)
