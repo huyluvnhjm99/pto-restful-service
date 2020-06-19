@@ -16,7 +16,6 @@ namespace pto_restful_service.Controllers
     {
         private entities db = new entities();
 
-        //[ActionName("get-all")]
         // GET: api/users
         public IQueryable<user> Getusers()
         {

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Security.Claims;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
 using pto_restful_service.Models;
@@ -18,8 +19,8 @@ namespace pto_restful_service.Controllers
     {
         private entities db = new entities();
 
-        //[ActionName("get-all")]
         // GET: api/questions
+        [Authorize(Roles = "Admin")]
         public IQueryable<question> Getquestions()
         {
             return db.questions;
