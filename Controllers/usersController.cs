@@ -12,9 +12,11 @@ using pto_restful_service.Models;
 
 namespace pto_restful_service.Controllers
 {
+    [RoutePrefix("api/v1/users")]
     public class usersController : ApiController
     {
         private entities db = new entities();
+
 
         // GET: api/users
         public IQueryable<user> Getusers()
@@ -23,7 +25,7 @@ namespace pto_restful_service.Controllers
         }
 
         //[ActionName("get-by-gmail")]
-        [NonAction]
+        [Route("gmail")]
         // GET: api/users/5
         [ResponseType(typeof(user))]
         public IQueryable<user> Getuser(string gmail)
