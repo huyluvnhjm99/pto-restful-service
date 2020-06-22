@@ -20,7 +20,7 @@ namespace pto_restful_service.App_Start
             {
                 AllowInsecureHttp = true,
                 //The Path For generating the Toekn
-                TokenEndpointPath = new PathString("/token"),
+                TokenEndpointPath = new PathString("/api/v1/token"),
                 //Setting the Token Expired Time (24 hours)
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 //MyAuthorizationServerProvider class will validate the user credentials
