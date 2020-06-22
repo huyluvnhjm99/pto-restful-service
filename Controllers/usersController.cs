@@ -25,7 +25,7 @@ namespace pto_restful_service.Controllers
         }
 
         //[ActionName("get-by-gmail")]
-        [Route("gmail/{gmail}")]
+        
         // GET: api/users/5
         [ResponseType(typeof(user))]
         public IQueryable<user> Getuser(string gmail)
