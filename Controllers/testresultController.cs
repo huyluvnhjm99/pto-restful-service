@@ -12,7 +12,7 @@ using pto_restful_service.Models;
 
 namespace pto_restful_service.Controllers
 {
-    [RoutePrefix("api/v1/test-result")]
+    [RoutePrefix("api/test-result")]
     public class testresultController : ApiController
     {
         private entities db = new entities();
