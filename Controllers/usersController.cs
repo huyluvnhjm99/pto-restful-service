@@ -19,14 +19,14 @@ namespace pto_restful_service.Controllers
 
 
         // GET: api/users
+        [Authorize(Roles = "Admin")]
         public IQueryable<user> Getusers()
         {
             return db.users;
         }
 
-        //[ActionName("get-by-gmail")]
-        [Route("gmail")]
         // GET: api/users/5
+        [Route("gmail")]
         [ResponseType(typeof(user))]
         public IQueryable<user> Getuser(string gmail)
         {
@@ -99,8 +99,9 @@ namespace pto_restful_service.Controllers
             return CreatedAtRoute("DefaultApi", new { id = user.id }, user);
         }
 
-        [Authorize(Roles = "Admin")]
+
         // DELETE: api/users/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(user))]
         public IHttpActionResult Deleteuser(int id)
         {

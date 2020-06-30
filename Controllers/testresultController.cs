@@ -112,6 +112,7 @@ namespace pto_restful_service.Controllers
         //[ActionName("delete-result")]
         // DELETE: api/testresult/5
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(test_result))]
         public IHttpActionResult Deletetest_result(int id)
         {
