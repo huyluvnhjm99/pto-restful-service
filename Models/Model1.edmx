@@ -20,7 +20,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="type" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="description" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="personality_test">
           <Key>
@@ -44,10 +44,10 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="date_create" Type="date" Nullable="false" />
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="test_id" Type="int" Nullable="false" />
           <Property Name="personality_id" Type="int" Nullable="false" />
+          <Property Name="date_create" Type="datetime" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -96,7 +96,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="personality_test">
           <Key>
@@ -120,7 +120,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="date_create" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="date_create" Type="DateTime" Precision="3" />
           <Property Name="user_id" Type="Int32" Nullable="false" />
           <Property Name="test_id" Type="Int32" Nullable="false" />
           <Property Name="personality_id" Type="Int32" Nullable="false" />
