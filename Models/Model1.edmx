@@ -44,11 +44,10 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="test_id" Type="int" Nullable="false" />
-          <Property Name="personality_id" Type="int" Nullable="false" />
           <Property Name="date_create" Type="datetime" />
           <Property Name="gmail" Type="nvarchar" MaxLength="255" />
-          <Property Name="user_id" Type="int" />
+          <Property Name="test_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="personality" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -122,9 +121,9 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="date_create" Type="DateTime" Precision="3" />
-          <Property Name="test_id" Type="Int32" Nullable="false" />
-          <Property Name="personality_id" Type="Int32" Nullable="false" />
           <Property Name="gmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="test_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="personality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -201,12 +200,12 @@
           <EntitySetMapping Name="test_result">
             <EntityTypeMapping TypeName="ptoModel.test_result">
               <MappingFragment StoreEntitySet="test_result">
+                <ScalarProperty Name="personality" ColumnName="personality" />
+                <ScalarProperty Name="test_name" ColumnName="test_name" />
                 <ScalarProperty Name="gmail" ColumnName="gmail" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="date_create" ColumnName="date_create" />
-                <ScalarProperty Name="test_id" ColumnName="test_id" />
-                <ScalarProperty Name="personality_id" ColumnName="personality_id" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="users">
