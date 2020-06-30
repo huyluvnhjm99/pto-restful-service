@@ -16,8 +16,8 @@ namespace pto_restful_service.Models
     {
         public int id { get; set; }
         public Nullable<System.DateTime> date_create { get; set; }
-        public int test_id { get; set; }
-        public int personality_id { get; set; }
         public string gmail { get; set; }
+        public string test_name { get; set; }
+        public string personality { get; set; }
     }
 }
