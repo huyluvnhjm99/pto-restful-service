@@ -80,6 +80,7 @@ namespace pto_restful_service.Controllers
         //[ActionName("post-result")]
         // POST: api/testresult
         [Route("")]
+        [Authorize(Roles = "User")]
         [ResponseType(typeof(test_result))]
         public IHttpActionResult Posttest_result(test_result test_result)
         {
