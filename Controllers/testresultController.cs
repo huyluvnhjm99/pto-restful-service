@@ -25,6 +25,12 @@ namespace pto_restful_service.Controllers
             return db.test_result;
         }
 
+        [Route("gmail")]
+        public IQueryable<test_result> GetResultByGmail(string gmail)
+        {
+            return db.test_result.Where(e => e.gmail == gmail);
+        }
+
         //[ActionName("get-by-id")]
         [Route("{id}")]
         // GET: api/testresult/5
