@@ -30,6 +30,7 @@ namespace pto_restful_service.App_Start
             app.UseOAuthAuthorizationServer(options);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
+
             HttpConfiguration config = new HttpConfiguration();
             WebApiConfig.Register(config);
         }

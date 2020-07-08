@@ -1,0 +1,51 @@
+﻿@model IEnumerable<pto_restful_service.Models.test_result>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.date_create)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.gmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.test_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.personality)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_create)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.gmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.test_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.personality)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

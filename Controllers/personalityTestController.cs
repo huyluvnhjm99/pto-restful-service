@@ -2,110 +2,117 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
+using System.Web;
+using System.Web.Mvc;
 using pto_restful_service.Models;
 
 namespace pto_restful_service.Controllers
 {
-    [RoutePrefix("api/v1/personality-test")]
-    public class personalitytestController : ApiController
+    public class PersonalityTestController : Controller
     {
         private entities db = new entities();
 
-        // GET: api/personalityTest
-        [Route("")]
-        public IQueryable<personality_test> Getpersonality_test()
+        // GET: PersonalityTest
+        public ActionResult Index()
         {
-            return db.personality_test;
+            return View(db.personality_test.ToList());
         }
 
-        // GET: api/personalityTest/5
-        [Route("{id}")]
-        [ResponseType(typeof(personality_test))]
-        public IHttpActionResult Getpersonality_test(int id)
+        // GET: PersonalityTest/Details/5
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             personality_test personality_test = db.personality_test.Find(id);
             if (personality_test == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
-            return Ok(personality_test);
+            return View(personality_test);
         }
 
-        [Route("{id}")]
-        // PUT: api/personalityTest/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult Putpersonality_test(int id, personality_test personality_test)
+        // GET: PersonalityTest/Create
+        public ActionResult Create()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            return View();
+        }
 
-            if (id != personality_test.id)
+        // POST: PersonalityTest/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "id,type,description,image")] personality_test personality_test)
+        {
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            db.Entry(personality_test).State = EntityState.Modified;
-
-            try
-            {
+                db.personality_test.Add(personality_test);
                 db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!personality_testExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToAction("Index");
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return View(personality_test);
         }
 
-        // POST: api/personalityTest
-        [Route("")]
-        [ResponseType(typeof(personality_test))]
-        public IHttpActionResult Postpersonality_test(personality_test personality_test)
+        // GET: PersonalityTest/Edit/5
+        public ActionResult Edit(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return BadRequest(ModelState);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            db.personality_test.Add(personality_test);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = personality_test.id }, personality_test);
-        }
-
-        [Route("{id}")]
-        [Authorize(Roles = "Admin")]
-        // DELETE: api/personalityTest/5
-        [ResponseType(typeof(personality_test))]
-        public IHttpActionResult Deletepersonality_test(int id)
-        {
             personality_test personality_test = db.personality_test.Find(id);
             if (personality_test == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            return View(personality_test);
+        }
 
+        // POST: PersonalityTest/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "id,type,description,image")] personality_test personality_test)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(personality_test).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(personality_test);
+        }
+
+        // GET: PersonalityTest/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            personality_test personality_test = db.personality_test.Find(id);
+            if (personality_test == null)
+            {
+                return HttpNotFound();
+            }
+            return View(personality_test);
+        }
+
+        // POST: PersonalityTest/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            personality_test personality_test = db.personality_test.Find(id);
             db.personality_test.Remove(personality_test);
             db.SaveChanges();
-
-            return Ok(personality_test);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -115,11 +122,6 @@ namespace pto_restful_service.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool personality_testExists(int id)
-        {
-            return db.personality_test.Count(e => e.id == id) > 0;
         }
     }
 }

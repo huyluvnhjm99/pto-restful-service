@@ -2,105 +2,117 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
+using System.Web;
+using System.Web.Mvc;
 using pto_restful_service.Models;
 
 namespace pto_restful_service.Controllers
 {
-    public class personalitiesController : ApiController
+    public class PersonalitiesController : Controller
     {
         private entities db = new entities();
 
-        // GET: api/personalities
-        public IQueryable<personality> Getpersonalities()
+        // GET: Personalities
+        public ActionResult Index()
         {
-            return db.personalities;
+            return View(db.personalities.ToList());
         }
 
-        // GET: api/personalities/5
-        [ResponseType(typeof(personality))]
-        public IHttpActionResult Getpersonality(int id)
+        // GET: Personalities/Details/5
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             personality personality = db.personalities.Find(id);
             if (personality == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
-            return Ok(personality);
+            return View(personality);
         }
 
-        // PUT: api/personalities/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult Putpersonality(int id, personality personality)
+        // GET: Personalities/Create
+        public ActionResult Create()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            return View();
+        }
 
-            if (id != personality.id)
+        // POST: Personalities/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "id,type,description")] personality personality)
+        {
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            db.Entry(personality).State = EntityState.Modified;
-
-            try
-            {
+                db.personalities.Add(personality);
                 db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!personalityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToAction("Index");
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return View(personality);
         }
 
-        // POST: api/personalities
-        [Authorize(Roles = "Admin")]
-        [ResponseType(typeof(personality))]
-        public IHttpActionResult Postpersonality(personality personality)
+        // GET: Personalities/Edit/5
+        public ActionResult Edit(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return BadRequest(ModelState);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            db.personalities.Add(personality);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = personality.id }, personality);
-        }
-
-        // DELETE: api/personalities/5
-        [Authorize(Roles = "Admin")]
-        [ResponseType(typeof(personality))]
-        public IHttpActionResult Deletepersonality(int id)
-        {
             personality personality = db.personalities.Find(id);
             if (personality == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            return View(personality);
+        }
 
+        // POST: Personalities/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "id,type,description")] personality personality)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(personality).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(personality);
+        }
+
+        // GET: Personalities/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            personality personality = db.personalities.Find(id);
+            if (personality == null)
+            {
+                return HttpNotFound();
+            }
+            return View(personality);
+        }
+
+        // POST: Personalities/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            personality personality = db.personalities.Find(id);
             db.personalities.Remove(personality);
             db.SaveChanges();
-
-            return Ok(personality);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -110,11 +122,6 @@ namespace pto_restful_service.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool personalityExists(int id)
-        {
-            return db.personalities.Count(e => e.id == id) > 0;
         }
     }
 }
