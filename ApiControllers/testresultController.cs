@@ -28,7 +28,7 @@ namespace pto_restful_service.Controllers
         [Route("gmail")]
         public IQueryable<test_result> GetResultByGmail(string gmail)
         {
-            return db.test_result.Where(e => e.gmail == gmail).OrderByDescending(e => e.date_create);
+            return db.test_result.Where(e => e.gmail == gmail);
         }
 
         //[ActionName("get-by-id")]
